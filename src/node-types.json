@@ -188,6 +188,10 @@
     "named": true,
     "subtypes": [
       {
+        "type": "anonymous_struct_literal",
+        "named": true
+      },
+      {
         "type": "array_literal",
         "named": true
       },
@@ -364,6 +368,22 @@
           "named": true
         }
       ]
+    }
+  },
+  {
+    "type": "anonymous_struct_literal",
+    "named": true,
+    "fields": {
+      "parameter": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "expressions",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {

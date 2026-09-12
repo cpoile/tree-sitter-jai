@@ -72,6 +72,7 @@ module.exports = grammar({
         [$.member_type_in_procedure_returns, $.identifier_type, $.types, $.member_type],
 
         [$.parenthesized_expression, $.assignment_parameters],
+        [$.assignment_statement, $.update_statement, $.anonymous_struct_literal],
     ],
 
     externals: $ => [
@@ -1098,13 +1099,16 @@ module.exports = grammar({
             $.char_string,
             $.string_directive,
             $.struct_literal,
+            $.anonymous_struct_literal,
             $.array_literal,
             $.boolean,
             $.null,
             $.uninitialized,
         ),
 
-        struct_literal: $ => prec.left(PREC.CALL, seq(
+        // Prefer typed struct literals over member expressions when the
+        // anonymous `{...}` literal can begin at the same point.
+        struct_literal: $ => prec.dynamic(PREC.CALL + 1, prec.left(PREC.CALL, seq(
             optional(
                 prec.left(choice(
                     seq('(', field('type', $.types), ')'),
@@ -1130,7 +1134,7 @@ module.exports = grammar({
                 optional(','),
             )),
             '}',
-        )),
+        ))),
 
         array_literal: $ => prec.left(PREC.CALL, seq(
             optional(
@@ -1263,6 +1267,17 @@ module.exports = grammar({
             // token(prec(1, /\//)),
 
         ))),
+
+        // Anonymous struct literal: { value1, value2, ... } without the leading dot
+        // Used in contexts like array literals or function arguments
+        anonymous_struct_literal: $ => prec.left(PREC.CALL - 1, seq(
+            '{',
+            optional(seq(
+                comma_sep1(field('parameter', $.expressions)),
+                optional(','),
+            )),
+            '}',
+        )),
 }
 });
 

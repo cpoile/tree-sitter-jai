@@ -1,0 +1,74 @@
+================================================================================
+anonymous struct literals
+================================================================================
+
+anonymous := {1, 2};
+empty := {};
+trailing := {9, 10,};
+argument := make({3, 4});
+array := []Thing.[{5, 6}, {7, 8}];
+typed_one := TestStruct1.{};
+typed_two := TestStruct2(69).{};
+
+--------------------------------------------------------------------------------
+
+(source_file
+	(statement
+		(declarations_that_require_a_semicolon
+			(variable_declaration
+				(identifier)
+				(anonymous_struct_literal
+					(integer)
+					(integer)))))
+	(statement
+		(declarations_that_require_a_semicolon
+			(variable_declaration
+				(identifier)
+				(anonymous_struct_literal))))
+	(statement
+		(declarations_that_require_a_semicolon
+			(variable_declaration
+				(identifier)
+				(anonymous_struct_literal
+					(integer)
+					(integer)))))
+	(statement
+		(declarations_that_require_a_semicolon
+			(variable_declaration
+				(identifier)
+				(call_expression
+					(identifier)
+					(assignment_parameters
+						(anonymous_struct_literal
+							(integer)
+							(integer)))))))
+	(statement
+		(declarations_that_require_a_semicolon
+			(variable_declaration
+				(identifier)
+				(array_literal
+					(types
+						(array_type
+							(identifier)))
+					(anonymous_struct_literal
+						(integer)
+						(integer))
+					(anonymous_struct_literal
+						(integer)
+						(integer))))))
+	(statement
+		(declarations_that_require_a_semicolon
+			(variable_declaration
+				(identifier)
+				(struct_literal
+					(identifier)))))
+	(statement
+		(declarations_that_require_a_semicolon
+			(variable_declaration
+				(identifier)
+				(struct_literal
+					(types
+						(parameterized_struct_type
+							(identifier)
+							(assignment_parameters
+								(integer)))))))))
