@@ -1,0 +1,44 @@
+================================================================================
+documentation comments
+================================================================================
+
+/** documentation **/
+foo :: () {}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (block_comment
+    (block_comment_text))
+  (statement
+    (procedure_declaration
+      name: (identifier)
+      (procedure
+        (assignment_parameters))
+      (block))))
+
+================================================================================
+nested block comments
+================================================================================
+
+/* outer
+   /** nested documentation **/
+   /* nested ordinary */
+*/
+foo :: () {}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (block_comment
+    (block_comment_text)
+    (block_comment
+      (block_comment_text))
+    (block_comment
+      (block_comment_text)))
+  (statement
+    (procedure_declaration
+      name: (identifier)
+      (procedure
+        (assignment_parameters))
+      (block))))

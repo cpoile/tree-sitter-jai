@@ -1250,7 +1250,7 @@ module.exports = grammar({
         block_comment: $ => seq(
             token(prec(0, "/*")),
             repeat($.block_comment_text,),
-            token(prec(0, '*/'))
+            token(prec(0, /\*+\//))
         ),
 
         block_comment_text: $ => prec.right(0, repeat1(choice(

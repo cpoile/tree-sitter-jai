@@ -7846,8 +7846,8 @@
             "type": "PREC",
             "value": 0,
             "content": {
-              "type": "STRING",
-              "value": "*/"
+              "type": "PATTERN",
+              "value": "\\*+\\/"
             }
           }
         }
